@@ -1,0 +1,14 @@
+.root-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.row-container {
+  display: flex;
+  flex-direction: row;
+  width: 600%;
+  height: 100vh;
+}
+
+
