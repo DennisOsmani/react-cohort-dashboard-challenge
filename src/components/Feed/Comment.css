@@ -1,0 +1,14 @@
+.comment-item {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    align-items: center;
+    background-color: #F0F5FA;
+    margin-bottom: 20px;
+}
+
+.comment-text {
+    color: #000046;
+    font-size: 12px;
+    margin-left: 20px;
+}

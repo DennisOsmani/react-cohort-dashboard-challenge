@@ -1,12 +1,19 @@
 import "../Left-Menu/LeftMenu.css";
 import HomeIcon from "./HomeIcon";
 import ProfileIcon from "./ProfileIcon";
+import { Link } from "react-router-dom";
 
 export default function LeftMenu() {
     return(
         <nav className="left-menu">
-            <HomeIcon /> {/* Make these clickable to render the feed or profile info */}
-            <ProfileIcon />
+            <Link to="/" className="home-icon"> 
+                <HomeIcon /> 
+                Home
+            </Link>
+            <Link to="/profile" className="profile-icon">
+                <ProfileIcon />
+                Profile
+            </Link>
         </nav>
     );
 }
