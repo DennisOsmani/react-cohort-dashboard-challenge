@@ -3,7 +3,6 @@
     flex-grow: 1;
     width: 70%;
     flex-direction: column;
-    margin-left: 10px;
     overflow-y: auto;
     height: 100%;
     padding: 20px;

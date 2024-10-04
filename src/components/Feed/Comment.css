@@ -7,8 +7,31 @@
     margin-bottom: 20px;
 }
 
+.comment-profile-image {
+    border-radius: 100px;
+    height: 4rem;
+    text-align: center;
+    width: 4rem;
+    font-weight: bold;
+    margin-left: 3px;
+  }
+
+  .initials5 {
+    margin-top: 19px;
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+  .comment-author {
+    font-weight: bold;
+    color: #000046;
+  }
+
 .comment-text {
     color: #000046;
-    font-size: 12px;
-    margin-left: 20px;
+    font-size: 12px
 }
