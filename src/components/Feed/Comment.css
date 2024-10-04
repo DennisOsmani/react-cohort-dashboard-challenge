@@ -42,3 +42,17 @@
 .comment-item a {
   text-decoration: none; /* Prevent underline for all links in the header */
 }
+
+.delete-comment-button {
+  background-color: lightcoral;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 700;
+  height: 2rem;
+  margin-left: 37rem;
+}
+
+.delete-comment-button:hover {
+  background-color: red;
+}

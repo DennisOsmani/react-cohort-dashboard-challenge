@@ -4,7 +4,7 @@ import "../Feed/Post.css";
 import Comment from "../Feed/Comment";
 import { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../App";
-import { CreatePostComment, GetPostComments } from "../../PostAPIs/PostAPI";
+import { CreatePostComment, DeletePost, GetPostComments } from "../../PostAPIs/PostAPI";
 import { Link } from "react-router-dom";
 
 export default function Post({post}) {
@@ -16,13 +16,23 @@ export default function Post({post}) {
       contactId: loggedInUser.id,
     });
     const [showAllComments, setShowAllComments] = useState(false);
+    const [isAuthor, setIsAuthor] = useState(false);
+    const [shouldFetchComments, setShouldFetchComments] = useState(false);
     
     const author = authors.find((a) => a.id === post.contactId);
 
     if (author === undefined) {
       return;
     }
-    
+
+    useEffect(() => {
+      if (loggedInUser.id === post.contactId) {
+        setIsAuthor(true);
+      } else {
+        setIsAuthor(false);
+      }
+    }, [loggedInUser.id, post.contactId]);
+
     const fetchAllComments = async () => {
     try {
       const result = await GetPostComments(username, post.id);
@@ -47,10 +57,25 @@ export default function Post({post}) {
         console.error("Error while adding a new comment: " + error);
       }
     }
+  
+    const handleDeletePost = async () => {
+      try{
+        await DeletePost(username, post.id);
+      } catch (error) {
+        console.error("Error in deleting a post: " + error);
+      }
+    }
 
     useEffect(() => {
       fetchAllComments();
-    },[]);
+    },[shouldFetchComments]);
+
+    useEffect(() => {
+      if (shouldFetchComments) {
+        fetchAllComments();
+        setShouldFetchComments(false); // Reset to false after fetching
+      }
+    }, [shouldFetchComments]);
 
     const visibleComments = showAllComments ? comments : comments.slice(0, 3);
 
@@ -89,7 +114,8 @@ export default function Post({post}) {
           </p>
         )}
             {visibleComments.map((comment, index) => (
-              <Comment key={index} comment={comment} />
+              <Comment key={index} comment={comment} postid={post.id}
+              setShouldFetchComments={setShouldFetchComments}/>
             ))}
             <div className="comment-section">
               <div className="newcomment-image" style={{backgroundColor: loggedInUser.favouriteColour}}>
@@ -105,6 +131,7 @@ export default function Post({post}) {
               />
               <button onClick={handleSubmitComment} className="comment-button">Post</button>
             </div>
+              {isAuthor ? (<button className="delete-post-button" onClick={handleDeletePost}>Delete Post</button>) : ("")}
           </div>
         </div>
       );

@@ -10,6 +10,8 @@ export default function PostDetail() {
     const {username} = useContext(PostContext);
     const [aPost, setApost] = useState(null);
     const { id } = useParams();
+    
+
 
 const fetchSinglePostById = async () => {
     try {
@@ -22,7 +24,9 @@ const fetchSinglePostById = async () => {
 
   useEffect(() => {
     fetchSinglePostById();
-  }, [id]);
+  }, []);
+
+ 
 
   if (!aPost) {
     return <p>Loading post.....</p>
@@ -30,7 +34,7 @@ const fetchSinglePostById = async () => {
 
   return(
     <div className="single-post">
-        <Post post={aPost} />
+        <Post post={aPost}/>
     </div>
 );
 }
