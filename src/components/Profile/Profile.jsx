@@ -1,43 +1,73 @@
-import { useContext } from "react";
-import ProfileIcon from "../Left-Menu/ProfileIcon";
+import { useContext, useState } from "react";
 import "../Profile/Profile.css";
 import { PostContext } from "../../App";
+import { useParams } from "react-router-dom";
+import { UpdateAContact } from "../../PostAPIs/PostAPI";
 
 export default function Profile() {
-    const { loggedInUser } = useContext(PostContext);
+    const { authors, username } = useContext(PostContext);
+    const { id } = useParams();
+    const author = authors.find((a) => a.id === Number(id));
+    const [updatedInfo, setUpdatedInfo] = useState({
+        firstName: author.firstName,
+        lastName: author.lastName,
+        gender: author.gender,
+        email: author.email,
+        street: author.street,
+        city: author.city,
+        favouriteColour: author.favouriteColour
+    })
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setUpdatedInfo({...updatedInfo, [name]: value});
+    }
+
+    const handleSaveChanges = async (event) => {
+        event.preventDefault();
+        try {
+            await UpdateAContact(username, author.id, updatedInfo);
+        } catch (error) {
+            console.error("Error in updating a contact: " + error);
+        }
+    } 
 
     return (
         <div className="profile-container">
         <h2 className="title">Profile</h2>
         <div className="profile-card">
         <div className="profile-header">
-            <div className="profile-image" style={{backgroundColor: loggedInUser.favouriteColour}}>
-              <p className="initials4">{loggedInUser.firstName.charAt(0)}{loggedInUser.lastName.charAt(0)}</p>
+            <div className="profile-image" style={{backgroundColor: updatedInfo.favouriteColour}}>
+              <p className="initials4">{updatedInfo.firstName.charAt(0)}{updatedInfo.lastName.charAt(0)}</p>
             </div>
-            <h3 className="profile-name">{loggedInUser.firstName} {loggedInUser.lastName}</h3>
+            <h3 className="profile-name">{updatedInfo.firstName} {updatedInfo.lastName}</h3>
         </div>
         <div className="profile-info1">
             <div className="account-info">
             <hr className="post-divider" />
                 <h4>Account Info</h4>
                 <p>First Name*</p>
-                <input type="text" name="firstName" value={loggedInUser.firstName}/>
+                <input type="text" name="firstName" value={updatedInfo.firstName} onChange={handleInputChange}/>
                 <p>Last Name*</p>
-                <input type="text" name="lastName" value={loggedInUser.lastName}/>
+                <input type="text" name="lastName" value={updatedInfo.lastName} onChange={handleInputChange}/>
                 <p>Username*</p>
-                <input type="text" name="username" value={"username"}/>
+                <input type="text" name="gender" value={updatedInfo.gender} onChange={handleInputChange}/>
                 <p>Email*</p>
-                <input type="text" name="email" value={"email"}/>
+                <input type="text" name="email" value={updatedInfo.email} onChange={handleInputChange}/>
             </div>
             <div className="address-info">
             <hr className="post-divider" />
                 <h4>Address Info</h4>
                 <p>Street</p>
-                <input type="text" name="street" value={"Mor"}/>
+                <input type="text" name="street" value={updatedInfo.street} onChange={handleInputChange}/>
+                <p>City</p>
+                <input type="text" name="city" value={updatedInfo.city} onChange={handleInputChange}/>
+                <p>Facourite Colour</p>
+                <input type="text" name="favouriteColour" value={updatedInfo.favouriteColour} style={{backgroundColor: updatedInfo.favouriteColour}} onChange={handleInputChange}/>
+                <p className="required">Required*</p>
+                {/* PART OF THE STYLING GUIDE, BUT NO VALUES FROM CONTACT API
                 <p>Suite</p>
                 <input type="text" name="suite" value={"Mor"}/>
-                <p>City</p>
-                <input type="text" name="city" value={"Mor"}/>
                 <p>Zipcode</p>
                 <input type="text" name="zipcode" value={"Mor"}/>
             </div>
@@ -62,9 +92,10 @@ export default function Profile() {
                 <input type="text" name="catchPhrase" value={"Mor"}/>
                 <p>Buisness Statement</p>
                 <input type="text" name="buisnessStatement" value={"Mor"}/>
+                */}
             </div>
         </div>
-        <button className="profile-button">Save</button>
+        <button className="profile-button" onClick={handleSaveChanges}>Save</button>
     </div>
     </div>
     );

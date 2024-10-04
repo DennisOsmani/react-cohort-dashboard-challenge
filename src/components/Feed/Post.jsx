@@ -16,7 +16,7 @@ export default function Post({post}) {
       contactId: loggedInUser.id,
     });
     const [showAllComments, setShowAllComments] = useState(false);
-
+    
     const author = authors.find((a) => a.id === post.contactId);
 
     if (author === undefined) {
@@ -62,9 +62,11 @@ export default function Post({post}) {
     return (
         <div className="post-card">
           <div className="post-header">
+          <Link to={`/profile/${author.id}`}>
             <div className="post-image" style={{backgroundColor: author.favouriteColour}}>
               <p className="initials">{author.firstName.charAt(0)}{author.lastName.charAt(0)}</p>
             </div>
+            </Link>
             <div className="title-name-container">
               <p className="post-header-name">{author.firstName} {author.lastName}</p>
               <Link to={`/post/${post.id}`} className="post-header-title">

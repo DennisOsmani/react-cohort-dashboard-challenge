@@ -85,6 +85,28 @@ export async function CreatePostComment(username, postId, newComment) {
     }
 }
 
+export async function GetPostById(username, postId) {
+    try {
+        const response = await fetch(`https://boolean-uk-api-server.fly.dev/${username}/post/${postId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Error in Get post by id response: " + response.status);
+        }
+
+        const jsonData = await response.json();
+        return jsonData;
+
+    } catch (error) {
+        throw new Error("Error while getting a Post by id!" + error);
+    }
+}
+
+
 
 // Contact APIs for the author
 export async function GetContactById(username, contactId) {
@@ -129,5 +151,28 @@ export async function GetAllContacts(username) {
 
     } catch (error) {
         throw new Error("Error while fetching all contacts " + error);
+    }
+}
+
+export async function UpdateAContact(username, id, newInfo) {
+    try {
+        const response = await fetch(`https://boolean-uk-api-server.fly.dev/${username}/contact/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newInfo),
+        });
+        // console.log(newInfo);
+
+        if (!response.ok) {
+            throw new Error("Error in PUT contact response: " + response.status);
+        }
+
+        const jsonData = await response.json();
+        return jsonData;
+
+    } catch (error) {
+        throw new Error("Error while updating a contact! " + error);
     }
 }

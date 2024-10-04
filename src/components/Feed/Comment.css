@@ -9,15 +9,18 @@
 
 .comment-profile-image {
     border-radius: 100px;
-    height: 4rem;
+    height: 3rem;
     text-align: center;
-    width: 4rem;
-    font-weight: bold;
+    width: 3rem;
     margin-left: 3px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
   }
 
   .initials5 {
-    margin-top: 19px;
+    font-weight: bold;
+    line-height: 1; 
   }
 
   .text-container {
@@ -34,4 +37,8 @@
 .comment-text {
     color: #000046;
     font-size: 12px
+}
+
+.comment-item a {
+  text-decoration: none; /* Prevent underline for all links in the header */
 }

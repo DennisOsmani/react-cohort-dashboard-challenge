@@ -25,6 +25,8 @@
     text-align: center;
     width: 3rem;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
   }
 
   .newcomment-image {
@@ -39,6 +41,10 @@
   
   .initials {
     margin-top: 11px;
+  }
+
+  .post-card a {
+    text-decoration: none; /* Prevent underline for all links in the header */
   }
 
   .title-name-conatiner {
@@ -60,6 +66,12 @@
     font-size: 14px;
     margin-left: 10px;
     margin-top: -8px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .post-header-title:hover {
+    color: #64dc78;
   }
   
   .post-content {

@@ -11,7 +11,7 @@ export default function Header() {
             <div className="header-logo">
                 <Logo />
             </div>
-            <Link to="/profile">
+            <Link to={`/profile/${loggedInUser.id}`}>
             <div className="header-image" style={{backgroundColor: loggedInUser.favouriteColour}}>
               <p className="initials3">{loggedInUser.firstName.charAt(0)}{loggedInUser.lastName.charAt(0)}</p>
             </div>

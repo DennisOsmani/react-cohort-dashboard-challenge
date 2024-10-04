@@ -5,7 +5,8 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './components/Feed/Home'
 import Profile from './components/Profile/Profile'
 import { createContext, useEffect, useState } from 'react'
-import { GetAllContacts, GetContactById, GetPostComments, GetPosts } from './PostAPIs/PostAPI'
+import { GetAllContacts, GetContactById, GetPosts } from './PostAPIs/PostAPI'
+import PostDetail from './components/Feed/PostDetail'
 
 export const PostContext = createContext();
 
@@ -66,7 +67,8 @@ function App() {
         
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/post/:id" element={<PostDetail />} />
         </Routes>
        
       </div>
